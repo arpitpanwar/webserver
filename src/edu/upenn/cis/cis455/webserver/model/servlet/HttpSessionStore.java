@@ -5,6 +5,9 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+/*
+ * Session store for storing the sessions in the context
+ */
 public class HttpSessionStore {
 	
 	private ConcurrentHashMap<String,HttpSession> sessionStore;

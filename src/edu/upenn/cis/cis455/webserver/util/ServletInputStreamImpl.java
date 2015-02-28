@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletInputStream;
-
+/**
+ * Servlet input stream implementation
+ * @author cis455
+ *
+ */
 public class ServletInputStreamImpl extends ServletInputStream {
 
 	private InputStream stream;

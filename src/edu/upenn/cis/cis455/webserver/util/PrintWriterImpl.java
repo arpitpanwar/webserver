@@ -13,7 +13,11 @@ import org.apache.log4j.Logger;
 import edu.upenn.cis.cis455.webserver.model.Header;
 import edu.upenn.cis.cis455.webserver.model.HeaderConstants;
 import edu.upenn.cis.cis455.webserver.model.Response;
-
+/**
+ * Extension of printwriter for writing to socket output stream.
+ * @author cis455
+ *
+ */
 public class PrintWriterImpl extends PrintWriter {
 	static final Logger LOG = Logger.getLogger(PrintWriterImpl.class);
 	
@@ -148,8 +152,8 @@ public class PrintWriterImpl extends PrintWriter {
 				off++;
 				this.index++;
 			}
-			//if(this.autoflush)
-				//writeToSocket();
+			if(this.autoflush)
+				writeToSocket();
 		}else{
 			if(this.index!=0){
 				writeToSocket();

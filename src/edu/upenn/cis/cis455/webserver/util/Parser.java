@@ -9,7 +9,11 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
-
+/**
+ * Class for parsing the web.xml file and returning the parsed result as an object
+ * @author cis455
+ *
+ */
 public class Parser {
 	Logger LOG = Logger.getLogger(Parser.class);
 	private Handler handler;

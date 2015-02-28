@@ -10,7 +10,7 @@ class HttpServer {
   {
 	  
 	  try{
-		  
+		  //Launch the server after parsing the arguments
 		  Launcher launch = new Launcher();
 		  if(!launch.initialize(args))
 			  System.out.println(Constants.INVALID_ARGS+Constants.HELP_STRING);

@@ -28,6 +28,11 @@ import org.apache.log4j.Logger;
 import edu.upenn.cis.cis455.webserver.pool.ThreadPool;
 import edu.upenn.cis.cis455.webserver.pool.ThreadPool.Worker;
 
+/**
+ * File containing utility methods being used repeatedly
+ * @author cis455
+ *
+ */
 public class Utils {
 	
 	static final Logger LOG = Logger.getLogger(Utils.class);

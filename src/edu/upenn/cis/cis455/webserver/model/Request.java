@@ -19,6 +19,11 @@ import org.apache.log4j.Logger;
 import edu.upenn.cis.cis455.webserver.util.Constants;
 import edu.upenn.cis.cis455.webserver.util.Utils;
  
+/**
+ * Class which parses the request and returns the parsed request object to be used in future
+ * @author cis455
+ *
+ */
 public class Request {
 	static final Logger LOG = Logger.getLogger(Request.class);
 
@@ -357,6 +362,10 @@ public class Request {
 		}
 		}
 		
+	}
+	
+	public boolean isEmptyPath(){
+		return this.getRequestPath().isEmpty();
 	}
 	
 }

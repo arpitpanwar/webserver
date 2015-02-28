@@ -2,8 +2,11 @@ package edu.upenn.cis.cis455.webserver.util;
 
 import java.io.File;
 
-import edu.upenn.cis.cis455.webserver.model.HeaderConstants;
-
+/**
+ * Constants being used all over
+ * @author cis455
+ *
+ */
 public class Constants {
 
 	public static long MAX_QUEUE_SIZE = Integer.MAX_VALUE-1;	
@@ -22,7 +25,7 @@ public class Constants {
 	public static final String THREAD_COUNT_ARGUMENT = "-t";
 	public static final String INVALID_ARGS = "Invalid arguments received\n";
 	public static String HELP_STRING="Usage:\n"
-			+"java –cp workspace/hw2 edu.cis.upenn.edu.cis455.hw2.HttpServer [options]\n"
+			+"java -cp workspace/hw2 edu.cis.upenn.edu.cis455.hw2.HttpServer [options]\n"
 			+ "Valid Options:\n"
 			+"PortNum* \t: Port Number to be used for launching server ("+ MIN_PORT_NUM +"-"+MAX_PORT_NUM+")\n"
 			+"RootFolder*\t: Root folder to be used by the server for serving request.Defaults to "

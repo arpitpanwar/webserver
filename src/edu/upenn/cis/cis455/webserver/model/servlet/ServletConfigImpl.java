@@ -9,6 +9,11 @@ import javax.servlet.ServletContext;
 
 import edu.upenn.cis.cis455.webserver.util.Parser;
 
+/**
+ * Implementation of ServletConfig interface
+ * @author cis455
+ *
+ */
 public class ServletConfigImpl implements ServletConfig {
 	
 	private HashMap<String,String> servletParams;

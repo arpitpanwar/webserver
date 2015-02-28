@@ -23,7 +23,11 @@ import edu.upenn.cis.cis455.webserver.util.Parser;
 import edu.upenn.cis.cis455.webserver.util.Utils;
 
 
-
+/**
+ * Class for loading the servlet
+ * @author cis455
+ *
+ */
 public class ServletLoader {
 	
 	static final Logger LOG = Logger.getLogger(ServletLoader.class); 
@@ -82,8 +86,8 @@ public class ServletLoader {
 			String servletPath=servletMappingMap.get(servletName);
 			if(!servletPath.startsWith("/"))
 				servletPath = "/"+servletPath;
-			if(servletPath.endsWith(Constants.MATCH_ALL))
-				servletPath = servletPath.substring(0, servletPath.length()-2);
+			//if(servletPath.endsWith(Constants.MATCH_ALL))
+			//	servletPath = servletPath.substring(0, servletPath.length()-2);
 			if(tempServlet!=null)
 				servlets.put(servletPath, tempServlet);
 			

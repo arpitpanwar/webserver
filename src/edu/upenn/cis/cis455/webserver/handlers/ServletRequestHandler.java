@@ -17,6 +17,11 @@ import edu.upenn.cis.cis455.webserver.model.servlet.HttpServletRequestImpl;
 import edu.upenn.cis.cis455.webserver.model.servlet.HttpServletResponseImpl;
 import edu.upenn.cis.cis455.webserver.util.Constants;
 
+/**
+ * Handles the requests for servlets
+ * @author Arpit
+ *
+ */
 public class ServletRequestHandler implements Handler {
 	static final Logger LOG = Logger.getLogger(ServletRequestHandler.class); 
 	
@@ -27,11 +32,11 @@ public class ServletRequestHandler implements Handler {
 	private ServerContext context;
 	private ServletContext servletContext;
 
-	public ServletRequestHandler(Request request, ServerContext context){
+	public ServletRequestHandler(Request request, ServerContext context,HttpServlet servlet){
 		this.request = request;
 		this.context = context;
 		this.servletContext = context.getServletContext(Constants.DEFAULT_CONTEXT);
-		this.servlet = context.getServletMap().get(request.getContextPath());
+		this.servlet = servlet;
 		result = new Object();
 	}
 	
@@ -42,16 +47,26 @@ public class ServletRequestHandler implements Handler {
 		
 		return result;
 	}
-	
+	/**
+	 * Sends the response to the user and closes the connections
+	 */
 	private void sendResponse(){
+		ResponseSender sender = new ResponseSender();
 		try{
 			this.servlet.service(generateServletRequest(), generateServletResponse());
 		}catch(IOException ioe){
 			LOG.debug("IOException during servlet invocation: "+ioe.getMessage());
+			sender.sendErrorResponse(request, Constants.SERVER_ERROR_STRING);
 		}catch(ServletException se){
 			LOG.debug("Servlet Exception during servlet invocation: "+se.getMessage());
+			sender.sendErrorResponse(request, Constants.SERVER_ERROR_STRING);
 		}catch(NullPointerException npe){
 			LOG.debug("Null pointer"+npe.getMessage());
+			sender.sendErrorResponse(request, Constants.SERVER_ERROR_STRING);
+			npe.printStackTrace();
+		}catch(Exception e){
+			LOG.debug("Unexpected Exception");
+			sender.sendErrorResponse(request, Constants.SERVER_ERROR_STRING);
 		}
 		
 	}

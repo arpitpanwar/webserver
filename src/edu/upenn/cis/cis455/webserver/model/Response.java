@@ -13,6 +13,12 @@ import org.apache.log4j.Logger;
 
 import edu.upenn.cis.cis455.webserver.util.Constants;
 
+/**
+ * Creates a response object which is passed around to send the response back to the user
+ * It is also used to initialize HttpServletResponse
+ * @author cis455
+ *
+ */
 public class Response {
 	private static final Logger LOG = Logger.getLogger(Response.class);
 	
@@ -133,7 +139,7 @@ public class Response {
 			 writer = new DataOutputStream(getOutStream());
 			 writer.writeBytes(generateResponseString(isPersistent));
 			 writer.writeBytes(generateHeaderString());
-			 writer.flush();
+			// writer.flush();
 			return true;
 		}catch(IOException ioe){
 			LOG.debug("Error sending response to the client"+ioe.getMessage());
@@ -141,7 +147,11 @@ public class Response {
 		}
 		return false;
 	}
-	
+	/**
+	 * Sends the response back to the user
+	 * @param isPersistent
+	 * @return
+	 */
 		
 	public boolean sendResponse(boolean isPersistent){
 		InputStream stream = null;
@@ -172,6 +182,12 @@ public class Response {
 		} 
 		return false;
 	}
+	/**
+	 * Utility method to send the message body
+	 * @param writer
+	 * @param stream
+	 * @throws IOException
+	 */
 	
 	private void sendMessageBody(OutputStream writer,InputStream stream)throws IOException{
 		

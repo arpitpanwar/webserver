@@ -6,6 +6,13 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.ArrayList;
 
+/**
+ * Blocking queue which queues in the incoming requests.
+ * The interface is similar to java.util.concurrent.LinkedBlockingQueue
+ * @author cis455
+ *
+ * @param <item>
+ */
 public class BlockingQueue<item> {
 	
 	private final Lock offerLock = new ReentrantLock();

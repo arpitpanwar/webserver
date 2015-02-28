@@ -1,5 +1,10 @@
 package edu.upenn.cis.cis455.webserver.model;
 
+/**
+ * Constants for Headers
+ * @author cis455
+ *
+ */
 public class HeaderConstants {
 	
 	public static final int STATUSCODE_BADREQ_VAL=400;

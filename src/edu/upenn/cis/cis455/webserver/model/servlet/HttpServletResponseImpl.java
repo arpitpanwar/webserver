@@ -2,12 +2,16 @@ package edu.upenn.cis.cis455.webserver.model.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import edu.upenn.cis.cis455.webserver.handlers.ResponseSender;
 import edu.upenn.cis.cis455.webserver.model.HeaderConstants;
@@ -16,8 +20,14 @@ import edu.upenn.cis.cis455.webserver.util.Constants;
 import edu.upenn.cis.cis455.webserver.util.PrintWriterImpl;
 import edu.upenn.cis.cis455.webserver.util.Utils;
 
+/**
+ * Implementation of HttpServletResponse Interface
+ * @author cis455
+ *
+ */
 public class HttpServletResponseImpl implements HttpServletResponse {
-
+	static final Logger LOG = Logger.getLogger(HttpServletResponseImpl.class);
+	
 	private Response response;
 	private PrintWriterImpl writer;
 	
@@ -80,6 +90,8 @@ public class HttpServletResponseImpl implements HttpServletResponse {
 
 	@Override
 	public void reset() {
+		if(this.isCommitted())
+			throw new IllegalStateException();
 		 this.writer.reset();
 	}
 
@@ -152,7 +164,12 @@ public class HttpServletResponseImpl implements HttpServletResponse {
 
 	@Override
 	public String encodeRedirectURL(String arg0) {
-		// TODO Auto-generated method stub
+		try{
+			String encoded = URLEncoder.encode(arg0, "UTF-8");
+			return encoded;
+		}catch(UnsupportedEncodingException ue){
+			LOG.debug("Unsupported scheme "+ue.getMessage());
+		}
 		return null;
 	}
 
@@ -164,7 +181,12 @@ public class HttpServletResponseImpl implements HttpServletResponse {
 
 	@Override
 	public String encodeURL(String arg0) {
-		// TODO Auto-generated method stub
+		try{
+			String encoded = URLEncoder.encode(arg0, "UTF-8");
+			return encoded;
+		}catch(UnsupportedEncodingException ue){
+			LOG.debug("Unsupported scheme "+ue.getMessage());
+		}
 		return null;
 	}
 

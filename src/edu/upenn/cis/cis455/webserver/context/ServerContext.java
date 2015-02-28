@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServlet;
 import edu.upenn.cis.cis455.webserver.model.servlet.HttpSessionStore;
 import edu.upenn.cis.cis455.webserver.pool.ThreadPool;
 
+/*
+ * Creates a server level object which follows the principles of Context design pattern.
+ * This object is instantiated only once using the Singleton Pattern and then passed around
+ * 
+ */
+
 public class ServerContext {
 	
 	private int portNum;

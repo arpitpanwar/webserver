@@ -11,6 +11,12 @@ import javax.servlet.http.HttpSessionContext;
 
 import edu.upenn.cis.cis455.webserver.util.Utils;
 
+/**
+ * Implementation of HttpSession interface
+ * @author cis455
+ *
+ */
+
 @SuppressWarnings("deprecation")
 public class HttpSessionImpl implements HttpSession {
 	

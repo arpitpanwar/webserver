@@ -22,7 +22,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
-
+/**
+ * Server class which launches the and monitors shutdown
+ * @author cis455
+ *
+ */
 public class Server {
 	static final Logger LOG = Logger.getLogger(Server.class);
 	
@@ -43,7 +47,10 @@ public class Server {
 		requestPool = new ThreadPool(launchArgs.getThreadCount());
 	}
 	
-	//Launches the server after loading the servlets
+	/*Launches the server after loading the servlets by creating a new thread.
+	 * Technically multiple instances of the server can be launched using this functions on different ports.
+	 * Though this is not exposed yet.
+	 */
 	public void launchServer(){
 		loadServlets();
 		context.addThreadPool(getRequestPool());
@@ -104,7 +111,7 @@ public class Server {
 		return requestPool;
 		
 	}
-	
+	//Load the servlets
 	private void loadServlets(){
 		
 		String path = this.launchArgs.getWebXmlPath();

@@ -26,6 +26,11 @@ import edu.upenn.cis.cis455.webserver.util.Constants;
 import edu.upenn.cis.cis455.webserver.util.ServletInputStreamImpl;
 import edu.upenn.cis.cis455.webserver.util.Utils;
 
+/**
+ * Implementation of HttpServletRequest interface
+ * @author cis455
+ *
+ */
 public class HttpServletRequestImpl implements HttpServletRequest {
 	
 	private Request request;

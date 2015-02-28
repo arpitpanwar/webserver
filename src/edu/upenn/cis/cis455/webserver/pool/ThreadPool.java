@@ -8,6 +8,11 @@ import edu.upenn.cis.cis455.webserver.exception.ShutdownException;
 import edu.upenn.cis.cis455.webserver.handlers.HttpRequestHandler;
 import edu.upenn.cis.cis455.webserver.util.*;
 
+/**
+ * Threadpool for handling requests
+ * @author cis455
+ *
+ */
 
 public class ThreadPool {
 	static final Logger LOG = Logger.getLogger(ThreadPool.class);
@@ -109,7 +114,11 @@ public class ThreadPool {
 	public void setShutdownRequested(boolean shutdownRequested) {
 		this.shutdownRequested = shutdownRequested;
 	}
-
+/**
+ * Worker class which executes the task
+ * @author cis455
+ *
+ */
 	 public class Worker implements Runnable{
 
 		private final Thread thread;

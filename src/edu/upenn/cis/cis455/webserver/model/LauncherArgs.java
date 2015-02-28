@@ -3,6 +3,11 @@ package edu.upenn.cis.cis455.webserver.model;
 import edu.upenn.cis.cis455.webserver.context.ServerContext;
 import edu.upenn.cis.cis455.webserver.util.Constants;
 
+/**
+ * Arguments used for launching server
+ * @author cis455
+ *
+ */
 public class LauncherArgs {
 	
 	private int threadCount=0;

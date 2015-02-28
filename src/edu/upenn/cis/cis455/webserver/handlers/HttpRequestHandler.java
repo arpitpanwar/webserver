@@ -18,6 +18,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
@@ -28,6 +31,7 @@ public class HttpRequestHandler extends RequestHandler {
 	private boolean supportNewFeatures = false;
 	private Request initialReq = null;
 	private Object obj;
+	private HttpServlet servlet;
 	
 	
 	public HttpRequestHandler(Socket request,ServerContext context)throws IOException {
@@ -82,7 +86,9 @@ public class HttpRequestHandler extends RequestHandler {
 		setSupportNewFeatures(req.isNewHttpVersion());
 		
 	}
-	
+	/*
+	 * Validates the incoming request and sends the required response
+	 */
 	private boolean validateAndSendResponse(Request req){
 		ResponseSender sender = new ResponseSender();
 		boolean isValid = false;
@@ -98,23 +104,19 @@ public class HttpRequestHandler extends RequestHandler {
 			}else
 			{	
 				if(isServlet(req.getContextPath())){
-					ServletRequestHandler servHandler =	new ServletRequestHandler(req, context);
+					ServletRequestHandler servHandler =	new ServletRequestHandler(req, context,this.servlet);
 					servHandler.handle();
 				}else{
 					sender.sendFirstResponse(req,context.getRootFolder());			
 				}
 			}
 		}catch(BadRequestException bre){
-			//sender.sendBadRequestResponse(req);
 			sender.sendErrorResponse(req, Constants.BAD_REQUEST_STRING);
 		}catch(FileNotFoundException fnfe){
-			//sender.sendNotFoundResponse(req);
 			sender.sendErrorResponse(req, Constants.NOT_FOUND_STRING);
 		}catch(MethodNotAllowedException mna){
-			//sender.sendMethodNotAllowedResponse(req);
 			sender.sendErrorResponse(req, Constants.METHOD_NOT_SUPPORTED_STRING);
 		}catch(ForbiddenException fbe){
-			//sender.sendForbiddenResponse(req);
 			sender.sendErrorResponse(req, Constants.FORBIDDEN_STRING);
 		}catch(Exception e){
 			if(e instanceof ShutdownException)
@@ -122,13 +124,15 @@ public class HttpRequestHandler extends RequestHandler {
 				obj = new String(Constants.SHUTDOWN);
 			}else{
 				LOG.debug("Unexpected error during response creation: "+e.getStackTrace()[0].toString());
-				//sender.sendUnexpectedErrorResponse(req);
 				sender.sendErrorResponse(req, Constants.SERVER_ERROR_STRING);
 			}
 		}
 				
 		return isValid;
 	}
+	/*
+	 * Check if the request is for Control or Shutdown
+	 */
 	
 	private boolean isSpecialRequest(Request req){
 		boolean isSpecial = false;
@@ -141,12 +145,15 @@ public class HttpRequestHandler extends RequestHandler {
 		return isSpecial;
 		
 	}
-	
+	/*
+	 * Validate the incoming request and throw exceptions based on the type of error in the request
+	 * Returns a boolean true/false indicating validity
+	 */
 	private boolean isValidRequest(Request req) throws BadRequestException,
 	FileNotFoundException, MethodNotAllowedException, ForbiddenException
 	{
 		
-		if(req.isNewHttpVersion() && !req.isValidHostHeader())
+		if((req.isEmptyPath()) || (req.isNewHttpVersion() && !req.isValidHostHeader()))
 			throw new BadRequestException();
 		
 		if(!Arrays.asList(HeaderConstants.SUPPORTED_METHODS).contains(req.getRequestMethod()))
@@ -163,20 +170,36 @@ public class HttpRequestHandler extends RequestHandler {
 		return true;
 	}
 	
-	
+	/*
+	 * Utility function to check if resource exists
+	 */
 	private boolean isResourcePresent(String childPath){
 		return new File(childPath).exists();
 	}
+	
+	/*
+	 * Check if the request was for a servlet and not for a web page
+	 */
 	
 	private boolean isServlet(String path){
 		
 		List<String> contextList = new ArrayList<>(context.getServletMap().keySet());
 		
-		return contextList.contains(path) || contextList.contains(Constants.MATCH_ALL);
+		for(String context:contextList){
+			Pattern pattern = Pattern.compile(context);
+			if(pattern.matcher(path).matches()){
+				this.servlet = this.context.getServletMap().get(context);
+				return true;
+			}
+		}
+		return false;
+		//return contextList.contains(path) || contextList.contains(Constants.MATCH_ALL);
 						
 	}
 	
-	
+	/*
+	 * Utility function to check if the hierarchy is followed
+	 */
 	private boolean isChild(String childPath, String parentPath) {
 		Path child = Paths.get(childPath).toAbsolutePath();
 	    Path parent = Paths.get(parentPath).toAbsolutePath();

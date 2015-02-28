@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+//Not used as of now
 public class ResourceContext {
 
 	private Map<String, String> mimeMap;

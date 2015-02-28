@@ -16,23 +16,22 @@ import edu.upenn.cis.cis455.webserver.model.Response;
 import edu.upenn.cis.cis455.webserver.util.Constants;
 import edu.upenn.cis.cis455.webserver.util.Utils;
 
+/*
+ * Class handles the response sending for Web pages and static resources
+ */
+
 public class ResponseSender {
 	static final Logger LOG = Logger.getLogger(ResponseSender.class);
 	
 	public ResponseSender(){
 		
 	}
+	
 	/*
-	private HashMap<String,String> generateHeader(String key, String value){
-		
-		HashMap<String, String> headers = new HashMap<String, String>();
-		
-		headers.put(key, value);
-		
-		return headers;
-		
-	}
-	*/
+	 * Send the static response based on the request received 
+	 * 
+	 */
+	
 	public void sendFirstResponse(Request req,String root){
 		
 		Response res = new Response();

@@ -1,5 +1,6 @@
 package edu.upenn.cis.cis455.webserver.model;
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -7,7 +8,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
+import javax.servlet.http.Cookie; 
+
+/**
+ * Model for headers for both requests and response
+ * @author cis455
+ *
+ */
 public class Header {
 	private HashMap<String,ArrayList<String>> headers;
 	

@@ -20,7 +20,11 @@ import org.apache.log4j.Logger;
 
 import edu.upenn.cis.cis455.webserver.util.Constants;
 import edu.upenn.cis.cis455.webserver.util.Parser;
-
+/**
+ * Implementation of ServletContext interface
+ * @author cis455
+ *
+ */
 public class ServletContextImpl implements ServletContext {
 	static final Logger LOG = Logger.getLogger(ServletContextImpl.class);
 	 

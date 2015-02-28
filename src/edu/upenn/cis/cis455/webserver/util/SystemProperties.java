@@ -2,7 +2,12 @@ package edu.upenn.cis.cis455.webserver.util;
 
 import java.util.Properties;
 import org.apache.log4j.Logger;
-        
+
+/**
+ * Loading the properties file
+ * @author cis455
+ *
+ */
 
 public class SystemProperties {
 	
