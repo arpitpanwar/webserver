@@ -39,7 +39,7 @@ public class Constants {
 	public static final String CONTENT_LENGTH="content-length";
 	public static final String CONTENT_STREAM="content-stream";
 	public static final String CONTENT_TYPE="content-type";
-	public static final String SERVER_INFO="arpanwar_Homework-1_Milestone_2";
+	public static final String SERVER_INFO="Homework-1_Milestone_2";
 	public static final String DEFAULT_CONTEXT="/";
 	
 	public static final String THREAD_WAITING="Waiting";

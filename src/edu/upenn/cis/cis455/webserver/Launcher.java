@@ -38,7 +38,6 @@ public class Launcher {
 			
 		}else{
 			System.out.println("No arguments provided.");
-			System.out.println("Arpit Panwar -- arpanwar@seas");
 			System.out.println("Launching server with default arguments.");
 			System.out.println("Default Port:"+launch.getPortNum()+"\nDefault folder:"+launch.getRootFolder()
 					+"\nDefault Web.xml location:"+launch.getWebXmlPath()
